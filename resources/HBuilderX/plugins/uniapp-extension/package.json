@@ -1,0 +1,1572 @@
+{
+  "id": "uniapp-extension",
+  "name": "uniapp-extension",
+  "description": "支持uni-app (x)项目编译到各平台",
+  "displayName": "uni-app (x)项目编译",
+  "version": "1.3.1-2025051911",
+  "publisher": "HBuilderX",
+  "__private": true,
+  "engines": {
+    "HBuilderX": "^3.6.10"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/index.js",
+  "scripts": {},
+  "activationEvents": [
+    "*",
+    "onCustomJsonFormEditor:uniapp.manifest"
+  ],
+  "contributes": {
+    "previewUrls": [
+      {
+        "provider": "uniAppPreviewUrl",
+        "loadingPage": "static/loading.html",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "priority": 9999
+      }
+    ],
+    "launchers": [
+      {
+        "type": "uniapp.publish.app.export.wgt",
+        "label": "%menubar.pubilsh.make.local.exportWgtResources%",
+        "terminateLabel": "%menubar.pubilsh.make.local.exportWgtResources%",
+        "when": "workspaceFolder.type == 'UniApp_Vue' || workspaceFolder.type == 'App' || workspaceFolder.type == 'Wap2App'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.app.export.resource",
+        "label": "%menubar.pubilsh.make.local.exportOfflineResources%",
+        "terminateLabel": "%menubar.pubilsh.make.local.exportOfflineResources%",
+        "when": "workspaceFolder.type == 'UniApp_Vue' || workspaceFolder.type == 'App' || workspaceFolder.type == 'Wap2App'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:h5-Chrome",
+        "launcherId": "uni-app:h5-Chrome-${workspaceFolder}:[${workbenchWindowId}]",
+        "mode": "custom",
+        "label": "${menuIndex}%launhcer.uni-app.h5-Chrome.label%",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.h5-Chrome.terminateLabel%",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.chrome.menu.enable",
+        "args": {
+          "platform": "h5",
+          "openVueDevtools": "h5",
+          "browser": "Chrome"
+        },
+        "version": 2
+      },
+      {
+        "type": "uni-app:h5-Chrome-page",
+        "providerId": "launcher:uni-app:h5-Chrome:page",
+        "mode": "custom",
+        "label": "${menuIndex}%launhcer.uni-app.h5-Chrome.label.page% - %launhcer.uni-app.specify-page.label%",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.chrome.menu.enable",
+        "version": 2
+      },
+      {
+        "type": "uni-app:h5-Built",
+        "launcherId": "uni-app:h5-Built-${workspaceFolder}:[${workbenchWindowId}]",
+        "mode": "custom",
+        "label": "${menuIndex}%launhcer.uni-app.h5-Built.label%",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.h5-Built.terminateLabel%",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.chrome.menu.enable",
+        "args": {
+          "platform": "h5",
+          "openVueDevtools": "h5",
+          "browser": "Built"
+        },
+        "version": 2
+      },
+      {
+        "type": "uni-app:h5-ssr",
+        "label": "%launhcer.uni-app:h5-ssr%",
+        "terminateLabel": "%launhcer.uni-app:h5-ssr%",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && expression.uniapp3 && config.chrome.menu.enable ",
+        "checked": "JSON.matches <- '${workspaceFolderSettingPath}/setting.json?query={\"RunWithSSR\": true}'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.h5",
+        "label": "%project.action.app.publish.html5.name%",
+        "terminateLabel": "%project.action.app.publish.html5.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:app-harmony-menu",
+        "launcherId": "uni-app:app-harmony-${workspaceFolder}:[${workbenchWindowId}]",
+        "mode": "custom",
+        "label": "${menuIndex}%launhcer.uni-app.app-harmony.label%",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.app-harmony.terminateLabel%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "enable": "workspaceFolder.type == 'UniApp_Vue'",
+        "args": {
+          "platform": "app-harmony"
+        },
+        "version": 2
+      },
+      {
+        "type": "uni-app:publish.harmony",
+        "launcherId": "uni-app:publish.harmony",
+        "mode": "custom",
+        "label": "%launhcer.publish.harmony.label%",
+        "terminateLabel": "%launhcer.publish.harmony.label%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-harmony-menu",
+        "launcherId": "uni-app:mp-harmony-${workspaceFolder}:[${workbenchWindowId}]",
+        "mode": "custom",
+        "label": "${menuIndex}%launhcer.uni-app.mp-harmony.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.mp-harmony.terminateLabel% - [${workspaceFolder.name}]",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.hmAs.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "args": {
+          "platform": "mp-harmony"
+        },
+        "version": 2
+      },
+      {
+        "type": "uni-app:publish.mp-harmony",
+        "launcherId": "uni-app:publish.mp-harmony",
+        "mode": "custom",
+        "label": "%project.action.app.publish.mp-harmony.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "version": 2
+      },
+      {
+        "type": "uni-app:app-menu",
+        "mode": "run",
+        "when": "workspaceFolder.type == 'UniApp_Vue'"
+      },
+      {
+        "type": "uni-app:publish.app",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "run"
+      },
+      {
+        "type": "uni-app:mp-weixin",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.weApp.devTools.menu.enable",
+        "launcherId": "uni-app:mp-weixin-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.weixin.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.weixin.terminateLabel% - [${workspaceFolder.name}]",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-weixin-page",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.weApp.devTools.menu.enable",
+        "providerId": "launcher:uni-app:mp-weixin:page",
+        "label": "%launhcer.uni-app.weixin.label.page% - [${workspaceFolder.name}] - %launhcer.uni-app.specify-page.label%",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.weapp",
+        "label": "%project.action.app.publish.weapp.name%",
+        "terminateLabel": "%project.action.app.publish.weapp.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-baidu",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.baiduApp.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "launcherId": "uni-app:mp-baidu-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.baidu.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.baidu.terminateLabel% - [${workspaceFolder.name}]",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-baidu-page",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.baiduApp.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "providerId": "launcher:uni-app:mp-baidu:page",
+        "label": "%launhcer.uni-app.baidu.label.page% - [${workspaceFolder.name}] - %launhcer.uni-app.specify-page.label%",
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.baidu",
+        "label": "%project.action.app.publish.baiduapp.name%",
+        "terminateLabel": "%project.action.app.publish.baiduapp.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-alipay",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.alipayApp.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "launcherId": "uni-app:mp-alipay-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.alipay.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.alipay.terminateLabel% - [${workspaceFolder.name}]",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-alipay-page",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.alipayApp.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "providerId": "launcher:uni-app:mp-alipay:page",
+        "label": "%launhcer.uni-app.alipay.label.page% - [${workspaceFolder.name}] - %launhcer.uni-app.specify-page.label%",
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.alipay",
+        "label": "%project.action.app.publish.alipayapp.name%",
+        "terminateLabel": "%project.action.app.publish.alipayapp.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-toutiao",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.bytedanceApp.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "launcherId": "uni-app:mp-toutiao-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.bytedance.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.bytedance.terminateLabel% - [${workspaceFolder.name}]",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.bytedance",
+        "label": "%project.action.app.publish.bytedanceapp.name%",
+        "terminateLabel": "%project.action.app.publish.bytedanceapp.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-qq",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.qqApp.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "launcherId": "uni-app:mp-qq-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.qq.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.qq.terminateLabel% - [${workspaceFolder.name}]",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.qq",
+        "label": "%project.action.app.publish.qqapp.name%",
+        "terminateLabel": "%project.action.app.publish.qqapp.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-360",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.360.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "launcherId": "uni-app:mp-360-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.360.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.360.terminateLabel% - [${workspaceFolder.name}]",
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.360",
+        "label": "%project.action.app.publish.360app.name%",
+        "terminateLabel": "%project.action.app.publish.360app.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:quickapp-webview-huawei",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.huawei.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "launcherId": "uni-app:quickapp-webview-huawei-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.huawei.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.huawei.terminateLabel% - [${workspaceFolder.name}]",
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.huawei",
+        "label": "%project.action.app.publish.huaweiapp.name%",
+        "terminateLabel": "%project.action.app.publish.huaweiapp.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:quickapp-webview-union",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.quickAppUnion.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "launcherId": "uni-app:quickapp-webview-union-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.quickappunion.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.quickappunion.terminateLabel% - [${workspaceFolder.name}]",
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.quickappunion",
+        "label": "%project.action.app.publish.quickappunion.name%",
+        "terminateLabel": "%project.action.app.publish.quickappunion.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-kuaishou",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.kuaishouApp.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "launcherId": "uni-app:mp-kuaishou-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.kuaishou.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.kuaishou.terminateLabel% - [${workspaceFolder.name}]",
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.kuaishou",
+        "label": "%project.action.app.publish.kuaishouapp.name%",
+        "terminateLabel": "%project.action.app.publish.kuaishouapp.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-lark",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.feishuApp.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "launcherId": "uni-app:mp-lark-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.feishu.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.feishu.terminateLabel% - [${workspaceFolder.name}]",
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.flyingBook",
+        "label": "%project.action.app.publish.feishuapp.name%",
+        "terminateLabel": "%project.action.app.publish.feishuapp.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-jd",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.jingdongApp.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "launcherId": "uni-app:mp-jd-${workspaceFolder}:[${workbenchWindowId}]",
+        "label": "${menuIndex}%launhcer.uni-app.jingdong.label% - [${workspaceFolder.name}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.jingdong.terminateLabel% - [${workspaceFolder.name}]",
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.jingdong",
+        "label": "%project.action.app.publish.jingdong.name%",
+        "terminateLabel": "%project.action.app.publish.jingdong.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uni-app:mp-xhs",
+        "when": "workspaceFolder.type == 'UniApp_Vue' && config.xhsApp.devTools.menu.enable && !(expression.uniappx || expression.uniappxCli)",
+        "label": "${menuIndex}%launhcer.uni-app.xhs.label% - [${workspaceFolder.name}]",
+        "launcherId": "uni-app:mp-xhs-${workspaceFolder}:[${workbenchWindowId}]",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app.xhs.terminateLabel% - [${workspaceFolder.name}]",
+        "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+        "args": {
+          "miniProgram": true,
+          "openVueDevtools": "miniProgram"
+        },
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp.publish.xhs",
+        "label": "%project.action.app.publish.xhs.name%",
+        "terminateLabel": "%project.action.app.publish.xhs.name%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp:miniProgram-compressCodeOnRunning",
+        "label": "${menuIndex}%launhcer.uni-app:miniProgram-compressCodeOnRunning%",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app:miniProgram-compressCodeOnRunning%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "checked": "JSON.matches <- '${workspaceFolderSettingPath}/setting.json?query={\"compressCodeOnRunning\": true}'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "uniapp:custom-menuBar",
+        "providerId": "uniapp:custom-menuBar:provider",
+        "label": "${menuIndex}%launhcer.uni-app:custom-menuBar.label%",
+        "terminateLabel": "${menuIndex}%launhcer.uni-app:custom-menuBar.label%",
+        "when": "workspaceFolder.type == 'UniApp_Vue'",
+        "mode": "custom",
+        "version": 2
+      },
+      {
+        "type": "extension.uniapp.custom.menu.enable",
+        "version": 2
+      }
+    ],
+    "customEditors": [],
+    "commands": [
+      {
+        "command": "extension.cli.helpLink",
+        "title": "%project.action.app.publish.quick.cli.name%."
+      },
+      {
+        "command": "extension.uni-app:h5-Chrome",
+        "title": "Chrome"
+      },
+      {
+        "command": "extension.uni-app:h5-Firefox",
+        "title": "Firefox"
+      },
+      {
+        "command": "extension.uni-app:h5-Ie",
+        "title": "Ie"
+      },
+      {
+        "command": "extension.uni-app:h5-Safari",
+        "title": "Safari"
+      },
+      {
+        "command": "extension.uni-app:h5-Edge",
+        "title": "Edge"
+      },
+      {
+        "command": "extension.uni-app:h5-openVueDevtools",
+        "title": "%command.extension.uni-app:h5-openVueDevtools%"
+      },
+      {
+        "command": "extension.publish.make.local.androidPackageGuide",
+        "title": "%menubar.pubilsh.make.local.androidPackageGuide%"
+      },
+      {
+        "command": "extension.publish.make.local.iOSPackageGuide",
+        "title": "%menubar.pubilsh.make.local.iOSPackageGuide%"
+      },
+      {
+        "command": "extension.uni-app:miniProgram-openVueDevtools",
+        "title": "%command.extension.uni-app:miniProgram-openVueDevtools%"
+      },
+      {
+        "command": "extension.uni-app:miniProgram-compressCodeOnRunning",
+        "title": "%command.extension.uni-app:miniProgram-compressCodeOnRunning%"
+      },
+      {
+        "command": "extension.uni-app:miniProgram-setting",
+        "title": "%command.extension.uni-app:miniProgram-setting%"
+      },
+      {
+        "command": "extension.open.pagejson"
+      },
+      {
+        "command": "extension.uni-app:miniProgram-notRun",
+        "title": "%command.extension.uni-app:miniProgram-notRun%"
+      },
+      {
+        "command": "extension.uni-app:installDependencies",
+        "title": "%command.extension.uni-app:installDependencies%"
+      }
+    ],
+    "clicommands": [
+      {
+        "name": "pack",
+        "descption": "App-Android/iOS云打包",
+        "doc": "文档：https://hx.dcloud.net.cn/cli/pack",
+        "args": [
+          {
+            "name": "help",
+            "descption": "打包cli命令帮助"
+          },
+          {
+            "name": "config",
+            "descption": "配置文件绝对路径，配置文件配置，参考configure.json",
+            "type": "file"
+          },
+          {
+            "name": "project",
+            "descption": "HBuilder X里导入的项目绝对路径"
+          },
+          {
+            "name": "platform",
+            "descption": "打包平台，默认值android,取值有android,ios如果要打多个逗号隔开"
+          },
+          {
+            "name": "iscustom",
+            "descption": "是否使用自定义基座 只有值为true时使用自定义基座",
+            "type": "boolean"
+          },
+          {
+            "name": "safemode",
+            "descption": "打包方式是否为安心打包,只有值为true时为安心打包,否则为传统打包",
+            "type": "boolean"
+          },
+          {
+            "name": "isconfusion",
+            "descption": "是否混淆,只有值为true时混淆",
+            "type": "boolean"
+          },
+          {
+            "name": "splashads",
+            "descption": "开屏广告,只有值为true时打开",
+            "type": "boolean"
+          },
+          {
+            "name": "rpads",
+            "descption": "悬浮红包广告,只有值为true时打开",
+            "type": "boolean"
+          },
+          {
+            "name": "unimpads",
+            "descption": "激励视频广告,只有值为true时打开",
+            "type": "boolean"
+          },
+          {
+            "name": "android.packagename",
+            "descption": "安卓包名，打安卓包时必填"
+          },
+          {
+            "name": "android.androidpacktype",
+            "descption": "安卓打包类型 默认值0,0 使用自有证书 1 使用公共证书 2 使用DCloud老版证书 3 使用云端证书"
+          },
+          {
+            "name": "android.certalias",
+            "descption": "安卓打包证书别名,自有证书打包填写的参数"
+          },
+          {
+            "name": "android.certfile",
+            "descption": "安卓打包证书文件路径,自有证书打包填写的参数",
+            "type": "file"
+          },
+          {
+            "name": "android.certpassword",
+            "descption": "安卓打包证书密码,自有证书打包填写的参数"
+          },
+          {
+            "name": "android.storepassword",
+            "descption": "安卓打包证书库密码,自有证书打包填写的参数"
+          },
+          {
+            "name": "android.channels",
+            "descption": "安卓平台要打的渠道包,取值有google,yyb,360,huawei,xiaomi,oppo,vivo如果要打多个逗号隔开"
+          },
+          {
+            "name": "android.antiResignAppid",
+            "descption": "安卓防重签,绑定appid,只有值为true时生效",
+            "type": "boolean"
+          },
+          {
+            "name": "android.antiResignAppid",
+            "descption": "安卓防重签,绑定包名,只有值为true时生效",
+            "type": "boolean"
+          },
+          {
+            "name": "android.antiResignPackageName",
+            "descption": "安卓防重签,绑定签名,只有值为true时生效",
+            "type": "boolean"
+          },
+          {
+            "name": "ios.bundle",
+            "descption": "iOS appid 打ios包时必填"
+          },
+          {
+            "name": "ios.supporteddevice",
+            "descption": "iOS打包支持的设备类型,默认值iPhone 值有iPhone,iPad,如果要打多个逗号隔开打包平台"
+          },
+          {
+            "name": "ios.isprisonbreak",
+            "descption": "iOS打包是否打越狱包,只有值为true时打越狱包,否则打正式包"
+          },
+          {
+            "name": "ios.channels",
+            "descption": "iOS平台要打的渠道包,取值有phone,simulator如果要打多个逗号隔开（只对mac生效）"
+          },
+          {
+            "name": "ios.profile",
+            "descption": "iOS使用自定义证书打包的profile文件路径",
+            "type": "file"
+          },
+          {
+            "name": "ios.certfile",
+            "descption": "iOS使用自定义证书打包的p12文件路径",
+            "type": "file"
+          },
+          {
+            "name": "ios.certpassword",
+            "descption": "iOS使用自定义证书打包的证书密码"
+          }
+        ]
+      },
+      {
+        "name": "publish",
+        "descption": "[deprecated]"
+      },
+      {
+        "name": "publish mp-weixin",
+        "descption": "cli发行微信小程序",
+        "unknowArgsValidation": true,
+        "doc": "用法：./cli publish --platform MP-WEIXIN --project xxx --name xxx --appid wxxxxxxxxxx --upload true --version 0.0.1 --privatekey /Users/xxx/Documents/private.wxxxxxxxxxx.key --description xxxxx\n  文档：https://hx.dcloud.net.cn/cli/publish-mp-weixin",
+        "args": [
+          {
+            "name": "help",
+            "descption": "发行cli命令帮助"
+          },
+          {
+            "name": "platform",
+            "descption": "[MP-WEIXIN] 发行平台"
+          },
+          {
+            "name": "project",
+            "descption": "HBuilder X里导入的项目绝对路径",
+            "usage": "require"
+          },
+          {
+            "name": "name",
+            "descption": "名称(不指定默认为项目名称)"
+          },
+          {
+            "name": "appid",
+            "descption": "小程序appid"
+          },
+          {
+            "name": "subPackage",
+            "descption": "行为混合分包名称(subPackage、upload只能填其中一)"
+          },
+          {
+            "name": "upload",
+            "descption": "是否打包后上传到微信平台(subPackage、upload只能填其中一)",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "version",
+            "descption": "要上传小程序的版本号"
+          },
+          {
+            "name": "privatekey",
+            "descption": "微信代码上传密钥文件"
+          },
+          {
+            "name": "description",
+            "descption": "上传的小程序描述"
+          },
+          {
+            "name": "robot",
+            "descption": "指定微信ci机器人编号（取值范围：1 ~ 30），默认为 1"
+          },
+          {
+            "name": "sourceMap",
+            "descption": "生成SourceMap",
+            "type": "boolean",
+            "default": false
+          }
+        ]
+      },
+      {
+        "name": "publish mp-alipay",
+        "descption": "cli发行支付宝小程序",
+        "doc": "用法：./cli publish --platform MP-ALIPAY --project xxx --name xxx --appid wxxxxxxxxxx --upload true --version 0.0.1 --privatekey /Users/xxx/Documents/xxxxxxxxx.json --description xxx\n  文档：https://hx.dcloud.net.cn/cli/publish-mp-alipay",
+        "args": [
+          {
+            "name": "help",
+            "descption": "发行cli命令帮助"
+          },
+          {
+            "name": "platform",
+            "descption": "[MP-ALIPAY] 发行平台"
+          },
+          {
+            "name": "project",
+            "descption": "HBuilder X里导入的项目绝对路径",
+            "usage": "require"
+          },
+          {
+            "name": "name",
+            "descption": "名称(不指定默认为项目名称)"
+          },
+          {
+            "name": "appid",
+            "descption": "小程序appid"
+          },
+          {
+            "name": "subPackage",
+            "descption": "行为混合分包名称(subPackage、upload只能填其中一)"
+          },
+          {
+            "name": "upload",
+            "descption": "是否打包后上传到支付宝平台(subPackage、upload只能填其中一)",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "version",
+            "descption": "要上传小程序的版本号"
+          },
+          {
+            "name": "privatekey",
+            "descption": "开发工具上传密钥文件"
+          },
+          {
+            "name": "description",
+            "descption": "上传的小程序描述"
+          }
+        ]
+      },
+      {
+        "name": "publish app",
+        "descption": "CLI 原生App-本地打包(生成本地打包App资源)",
+        "doc": "用法：./cli publish --platform APP --type appResource --project xxx\n  文档：https://hx.dcloud.net.cn/cli/publish-APP-appResource",
+        "args": [
+          {
+            "name": "help",
+            "descption": "发行cli命令帮助"
+          },
+          {
+            "name": "platform",
+            "descption": "[APP] 发行平台"
+          },
+          {
+            "name": "project",
+            "descption": "HBuilder X里导入的项目绝对路径",
+            "usage": "require"
+          },
+          {
+            "name": "type",
+            "descption": "[appResource] 本地打包(生成本地打包App资源)",
+            "usage": "require"
+          }
+        ]
+      },
+      {
+        "name": "publish app ",
+        "descption": "CLI 原生App-制作应用wgt包",
+        "doc": "用法：./cli publish --platform APP --type wgt --project xxx --name test.wgt --confuse true\n  文档：https://hx.dcloud.net.cn/cli/publish-APP-wgt",
+        "args": [
+          {
+            "name": "help",
+            "descption": "发行cli命令帮助"
+          },
+          {
+            "name": "platform",
+            "descption": "[APP] 发行平台"
+          },
+          {
+            "name": "project",
+            "descption": "HBuilder X里导入的项目绝对路径",
+            "usage": "require"
+          },
+          {
+            "name": "type",
+            "descption": "[wgt] 制作应用wgt包",
+            "usage": "require"
+          },
+          {
+            "name": "name",
+            "descption": "导出名称(不指定默认为：AppID)"
+          },
+          {
+            "name": "path",
+            "descption": "导出路径(不指定默认为：项目根路径/unpackage/release)"
+          },
+          {
+            "name": "confuse",
+            "descption": "是否对配置的js/nvue文件进行原生混淆",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "sourceMap",
+            "descption": "生成SourceMap",
+            "type": "boolean",
+            "default": false
+          }
+        ]
+      },
+      {
+        "name": "publish h5",
+        "descption": "CLI 发行到H5",
+        "doc": "用法：./cli publish --platform H5 --project xxx --webTitle xxx --ssr true --webHosting true --provider aliyun --spaceId xxx-xxx-xxx-xxx-xxx\n  文档：https://hx.dcloud.net.cn/cli/publish-h5",
+        "args": [
+          {
+            "name": "help",
+            "descption": "发行cli命令帮助"
+          },
+          {
+            "name": "platform",
+            "descption": "[H5] 发行平台"
+          },
+          {
+            "name": "project",
+            "descption": "HBuilder X里导入的项目绝对路径",
+            "usage": "require"
+          },
+          {
+            "name": "webTitle",
+            "descption": "网站标题(发行类型为H5时可配置此项，不指定默认为项目名称)"
+          },
+          {
+            "name": "webDomain",
+            "descption": "网站域名(发行类型为H5时可配置此项)"
+          },
+          {
+            "name": "ssr",
+            "descption": "是否ssr发行(项目使用vue3时配置此项才生效)",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "ssrHost",
+            "descption": "ssr发行时，网页托管的服务商绑定多个域名情况下，需指定域名"
+          },
+          {
+            "name": "ssrProvider",
+            "descption": "ssr发行时，项目下绑定多个云服务空间时，需指定云函数上传到那个服务商，可选值为[aliyun|alipay|tcb]"
+          },
+          {
+            "name": "webHosting",
+            "descption": "是否前端网页托管",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "provider",
+            "descption": "服务商代号",
+            "default": "aliyun",
+            "type": "enum",
+            "enum": "aliyun|alipay|tcb"
+          },
+          {
+            "name": "spaceId",
+            "descption": "云空间id"
+          },
+          {
+            "name": "sourceMap",
+            "descption": "是否生成SourceMap",
+            "type": "boolean",
+            "default": false
+          }
+        ]
+      }
+    ],
+    "menus": {
+      "menubar/publish": [
+        {
+          "id": "publishMakelocal",
+          "title": "%menubar.pubilsh.make.local%",
+          "overrideId": "publish.makelocal",
+          "group": "publish.export.wgt.app"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:publish.harmony",
+            "enable": "workspaceFolder.type == 'UniApp_Vue'",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "publish.export.wgt.app"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.app.export.wgt",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' || workspaceFolder.type == 'App' || workspaceFolder.type == 'Wap2App'",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "overrideId": "publish.export.wgt.app",
+          "group": "publish.export.wgt.app"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.app.export.resource",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' || workspaceFolder.type == 'App' || workspaceFolder.type == 'Wap2App'",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "publishMakelocal@1"
+        },
+        {
+          "id": "publishMakelocal_2",
+          "command": "extension.publish.make.local.androidPackageGuide",
+          "group": "publishMakelocal@2"
+        },
+        {
+          "id": "publishMakelocal_3",
+          "command": "extension.publish.make.local.iOSPackageGuide",
+          "group": "publishMakelocal@3"
+        },
+        {
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.weapp",
+            "enable": "workspaceFolder.type == 'UniApp_Vue'",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.baidu",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.alipay",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.bytedance",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.qq",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.360",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.huawei",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.quickappunion",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.kuaishou",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.flyingBook",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.jingdong",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.xhs",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:publish.mp-harmony",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "group": "group.publish.html5.separator"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.h5",
+            "enable": "workspaceFolder.type == 'UniApp_Vue'",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "group.publish.html5.separator"
+        }
+      ],
+      "menubar/run": [
+        {
+          "id": "runInMiniProgram",
+          "title": "%menubar.run.miniProgram.title%",
+          "when": "constants.True",
+          "group": "old_scriptrun_menu"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-weixin",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@1"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-weixin-page",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@2"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-baidu",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@3"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-baidu-page",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@4"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-alipay",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@5"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-alipay-page",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@6"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-toutiao",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@7"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-qq",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@8"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-360",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@9"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:quickapp-webview-huawei",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@10"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:quickapp-webview-union",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@11"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-kuaishou",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@12"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-lark",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@13"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-jd",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@14"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-xhs",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@15"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:mp-harmony-menu",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@16"
+        },
+        {
+          "group": "runInMiniProgram@20"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "command": "extension.uni-app:miniProgram-openVueDevtools",
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "checked": "JSON.matches <- '${workspaceFolder}/.hbuilderx/launch.json?query={\"configurations\":[ { \"openVueDevtools\":true,\"type\":\"uni-app:miniProgram\" } ]}'",
+          "group": "runInMiniProgram@31"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "command": "extension.uni-app:miniProgram-compressCodeOnRunning",
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "checked": "JSON.matches <- '${workspaceFolderSettingPath}/setting.json?query={\"compressCodeOnRunning\": true}'",
+          "group": "runInMiniProgram@32"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "command": "extension.uni-app:miniProgram-setting",
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInMiniProgram@33"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "command": "extension.uni-app:miniProgram-notRun",
+          "when": "workspaceFolder.type != 'UniApp_Vue'",
+          "group": "runInMiniProgram@1"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uni-app:h5-Built",
+            "when": "workspaceFolder.type == 'UniApp_Vue'"
+          },
+          "dynamic": true,
+          "overrideId": "old_builtin_browser_action",
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "_top"
+        },
+        {
+          "id": "runInBrowser",
+          "title": "%menubar.run.browser.title%",
+          "overrideId": "old_builtin_browser_menu",
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "_top"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "command": "extension.uni-app:h5-Chrome",
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInBrowser@1"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "command": "extension.uni-app:h5-Firefox",
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "group": "runInBrowser@2"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "command": "extension.uni-app:h5-Ie",
+          "when": "workspaceFolder.type == 'UniApp_Vue' && !isMac",
+          "group": "runInBrowser@3"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "command": "extension.uni-app:h5-Safari",
+          "when": "workspaceFolder.type == 'UniApp_Vue' && isMac",
+          "group": "runInBrowser@4"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "command": "extension.uni-app:h5-Edge",
+          "when": "workspaceFolder.type == 'UniApp_Vue' && !isMac",
+          "group": "runInBrowser@5"
+        },
+        {
+          "group": "runInBrowser@6",
+          "when": "workspaceFolder.type == 'UniApp_Vue'"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "command": "extension.uni-app:h5-openVueDevtools",
+          "when": "workspaceFolder.type == 'UniApp_Vue'",
+          "checked": "JSON.matches <- '${workspaceFolder}/.hbuilderx/launch.json?query={\"configurations\":[ { \"openVueDevtools\":true,\"type\":\"uni-app:h5\" } ]}'",
+          "group": "runInBrowser@7"
+        }
+      ],
+      "workbench.action.showPubMenu.provider": [
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.h5",
+            "label": "%project.action.app.publish.quick.h5.name%",
+            "terminateLabel": "%project.action.app.publish.quick.h5.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue'",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.weapp",
+            "label": "%project.action.app.publish.quick.weapp.name%",
+            "terminateLabel": "%project.action.app.publish.quick.weapp.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue'",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.baidu",
+            "label": "%project.action.app.publish.quick.baiduapp.name%",
+            "terminateLabel": "%project.action.app.publish.quick.baiduapp.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.alipay",
+            "label": "%project.action.app.publish.quick.alipayapp.name%",
+            "terminateLabel": "%project.action.app.publish.quick.alipayapp.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.bytedance",
+            "label": "%project.action.app.publish.quick.bytedanceapp.name%",
+            "terminateLabel": "%project.action.app.publish.quick.bytedanceapp.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.qq",
+            "label": "%project.action.app.publish.quick.qqapp.name%",
+            "terminateLabel": "%project.action.app.publish.quick.qqapp.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.360",
+            "label": "%project.action.app.publish.quick.360app.name%",
+            "terminateLabel": "%project.action.app.publish.quick.360app.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.huawei",
+            "label": "%project.action.app.publish.quick.huaweiapp.name%",
+            "terminateLabel": "%project.action.app.publish.quick.huaweiapp.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.quickappunion",
+            "label": "%project.action.app.publish.quick.quickappunion.name%",
+            "terminateLabel": "%project.action.app.publish.quick.quickappunion.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.kuaishou",
+            "label": "%project.action.app.publish.quick.kuaishouapp.name%",
+            "terminateLabel": "%project.action.app.publish.quick.kuaishouapp.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.flyingBook",
+            "label": "%project.action.app.publish.quick.feishuapp.name%",
+            "terminateLabel": "%project.action.app.publish.quick.feishuapp.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.jingdong",
+            "label": "%project.action.app.publish.quick.jingdong.name%",
+            "terminateLabel": "%project.action.app.publish.quick.jingdong.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "id": "workbench.launch2menu.provider",
+          "providerArgs": {
+            "type": "uniapp.publish.xhs",
+            "label": "%project.action.app.publish.quick.xhs.name%",
+            "terminateLabel": "%project.action.app.publish.quick.xhs.name%",
+            "enable": "workspaceFolder.type == 'UniApp_Vue' && !(expression.uniappx || expression.uniappxCli)",
+            "when": "constants.True"
+          },
+          "dynamic": true,
+          "group": "_foot"
+        },
+        {
+          "command": "extension.cli.helpLink",
+          "group": "_foot",
+          "when": "constants.True"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "workspaceFolder.type == 'UniApp_Vue' && !expression.uniappCli && workspaceFolderRelativePath  =~ /^package.json/",
+          "group": "_top"
+        },
+        {
+          "command": "extension.uni-app:installDependencies",
+          "when": " workspaceFolder.type == 'UniApp_Vue' && !expression.uniappCli && workspaceFolderRelativePath  =~ /^package.json/",
+          "group": "_top"
+        },
+        {
+          "when": "workspaceFolder.type == 'UniApp_Vue' && !expression.uniappCli && workspaceFolderRelativePath  =~ /^package.json/",
+          "group": "_top"
+        }
+      ]
+    },
+    "expressions": {
+      "uniappCli": "JSON.matches <- '${workspaceFolder}/src/manifest.json?query={}'",
+      "uniappxCli": "JSON.matches <- '${workspaceFolder}/src/manifest.json?query={\"uni-app-x\":{  }}'",
+      "uniappx": "JSON.matches <- '${workspaceFolder}/manifest.json?query={\"uni-app-x\":{  }}'",
+      "uniapp3": "JSON.matches <- '${workspaceFolder}/manifest.json?query={\"vueVersion\":\"3\"}' || JSON.matches <- '${workspaceFolder}/src/manifest.json?query={\"vueVersion\":\"3\"}'"
+    },
+    "extConfigurationDefaults": {
+      "weApp.devTools.menu.enable": true,
+      "baiduApp.devTools.menu.enable": false,
+      "alipayApp.devTools.menu.enable": false,
+      "bytedanceApp.devTools.menu.enable": false,
+      "qqApp.devTools.menu.enable": false,
+      "chrome.menu.enable": true,
+      "devices.menu.enable": true,
+      "360.devTools.menu.enable": false,
+      "huawei.devTools.menu.enable": false,
+      "quickAppUnion.devTools.menu.enable": false,
+      "kuaishouApp.devTools.menu.enable": false,
+      "feishuApp.devTools.menu.enable": false,
+      "jingdongApp.devTools.menu.enable": false,
+      "xhsApp.devTools.menu.enable": false,
+      "hmAs.menu.enable": true,
+      "custom.menu.enable": true
+    }
+  },
+  "extensionDependencies": [
+    "plugin-manager"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "buildStamp": "release:17c18269c3e81f8d5f8ebcfe03757ea3588a904c",
+  "_dc_signatures": "6f9632cdfb581f3e617a8c606a38dde409d3f25b965be76f98615bc8d23df5a4cc697aba009ef8b8662c28a05e87c36e",
+  "_last_git_hash": "d772b855ed21827e933e6ac3db97043d8522b5f1"
+}

@@ -1,0 +1,27 @@
+{
+    "name": "uvue页面模板",
+    "description": "uvue页面模板",
+    "sortgroup": ["base", "custom", ""],
+    "templates": [{
+            "file": "default.uvue",
+            "name": "%default.name%"
+        },
+        {
+            "file": "setup.uvue",
+            "name": "%default.combine.name%",
+	"skipvuever":"2"
+        },
+        {
+            "file": "使用less的页面.uvue",
+            "name": "%less.name%"
+        },
+        {
+            "file": "使用scss的页面.uvue",
+            "name": "%scss.name%"
+        },
+        {
+            "file": "使用stylus的页面.uvue",
+            "name": "%stylus.name%"
+        }
+    ]
+}

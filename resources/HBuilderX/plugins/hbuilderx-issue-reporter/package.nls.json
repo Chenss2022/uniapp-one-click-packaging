@@ -1,0 +1,5 @@
+{
+	"template.description": "反馈问题",
+	"template.displayName": "Bug反馈",
+	"extension.issueReporter": "Bug反馈"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "uniapp-basic",
+  "name": "uniapp-basic",
+  "description": "%description%",
+  "displayName": "%displayName%",
+  "version": "1.2.0-2025022018",
+  "publisher": "dcloud",
+  "engines": {
+    "HBuilderX": "^3.4.5"
+  },
+  "__private": true,
+  "__from": "HBuilderX",
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/index.js",
+  "scripts": {},
+  "activationEvents": [
+    "*"
+  ],
+  "contributes": {},
+  "extensionDependencies": [
+    "plugin-manager"
+  ],
+  "dependencies": {},
+  "devDependencies": {}
+}
