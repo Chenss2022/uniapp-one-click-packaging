@@ -1,0 +1,42 @@
+[
+  {
+    "project": "F:\\MYCODE\\uniapp\\UniAutoStart-master\\uni-app",
+    "platform":"android",
+    "iscustom": false,
+    "safemode": false,
+    "android": {
+      "packagename":"uni.UNI1EA86F6",
+      "androidpacktype":"0",
+      "certalias":"startRE",
+      "certfile":"D:\\AppKey\\startRE\\startRE.keystore",
+      "certpassword":"lianhe123",
+      "storePassword": "lianhe123",
+      "channels":""
+    },
+    "isconfusion":false,
+    "splashads":false,
+    "rpads":false,
+    "pushads":false,
+    "exchange":false
+  },
+  {
+    "project": "F:\\MYCODE\\uniapp\\UniAutoStart-master\\uni-app",
+    "platform":"android",
+    "iscustom": false,
+    "safemode": false,
+    "android": {
+      "packagename":"uni.UNI1EA86F6",
+      "androidpacktype":"0",
+      "certalias":"startRE",
+      "certfile":"D:\\AppKey\\startRE\\startRE.keystore",
+      "certpassword":"lianhe123",
+      "storePassword": "lianhe123",
+      "channels":""
+    },
+    "isconfusion":false,
+    "splashads":false,
+    "rpads":false,
+    "pushads":false,
+    "exchange":false
+  }
+]
